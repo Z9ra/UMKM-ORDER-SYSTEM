@@ -1,59 +1,234 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🛒 UMKM Order System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem manajemen order berbasis web untuk UMKM, dibangun dengan Laravel, Breeze Authentication, dan Tailwind CSS.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Deskripsi
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+UMKM Order System adalah aplikasi web full-stack yang memudahkan pelanggan melakukan pemesanan secara online dan membantu pemilik usaha mengelola serta memantau order masuk melalui dashboard admin yang aman dan informatif.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ Fitur
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **Form Order Online** — Pelanggan dapat mengisi nama, nomor WhatsApp, alamat, dan detail order
+- **Dashboard Admin** — Tampilan ringkasan order berdasarkan status (Pending, Proses, Selesai, Batal)
+- **Update Status Order** — Admin dapat mengubah status order langsung dari dashboard
+- **Authentication (Login/Register)** — Dashboard hanya bisa diakses oleh admin yang sudah login
+- **Navbar Navigasi** — Akses Dashboard dan Input Order langsung dari navbar
+- **Notifikasi Flash** — Konfirmasi otomatis setiap kali order berhasil ditambahkan atau diupdate
+- **Responsive UI** — Tampilan yang nyaman di desktop maupun mobile
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🛠️ Tech Stack
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+| Layer           | Teknologi                |
+| --------------- | ------------------------ |
+| Backend         | PHP 8.2, Laravel 12      |
+| Authentication  | Laravel Breeze           |
+| Frontend        | HTML, Tailwind CSS (CDN) |
+| Database        | MySQL                    |
+| Template Engine | Blade                    |
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## ⚙️ Instalasi
 
-## Contributing
+### Prasyarat
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- PHP >= 8.2
+- Composer
+- MySQL
+- Node.js & NPM
+- XAMPP (atau web server lainnya)
 
-## Code of Conduct
+### Langkah Instalasi
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**1. Clone repository**
 
-## Security Vulnerabilities
+```bash
+git clone https://github.com/username/umkm-order-system.git
+cd umkm-order-system
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**2. Install PHP dependencies**
 
-## License
+```bash
+composer install
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**3. Install NPM dependencies**
+
+```bash
+npm install
+```
+
+**4. Salin file environment**
+
+```bash
+cp .env.example .env
+```
+
+**5. Generate application key**
+
+```bash
+php artisan key:generate
+```
+
+**6. Konfigurasi database di file `.env`**
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=umkm_order_system
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+**7. Buat database**
+
+```sql
+CREATE DATABASE umkm_order_system;
+```
+
+**8. Jalankan migrasi**
+
+```bash
+php artisan migrate
+```
+
+**9. Buat akun admin pertama**
+
+```bash
+php artisan tinker
+```
+
+```php
+App\Models\User::create([
+    'name' => 'Admin',
+    'email' => 'admin@umkm.com',
+    'password' => bcrypt('password123'),
+]);
+```
+
+**10. Jalankan server**
+
+```bash
+php artisan serve
+```
+
+---
+
+## 🚀 Penggunaan
+
+Setelah server berjalan, buka browser dan akses:
+
+| Halaman                | URL                               | Akses          |
+| ---------------------- | --------------------------------- | -------------- |
+| Form Order (Pelanggan) | `http://127.0.0.1:8000`           | Publik         |
+| Login Admin            | `http://127.0.0.1:8000/login`     | Publik         |
+| Dashboard Admin        | `http://127.0.0.1:8000/dashboard` | Login required |
+| Input Order (Admin)    | `http://127.0.0.1:8000/`          | Login required |
+| Profile Admin          | `http://127.0.0.1:8000/profile`   | Login required |
+
+---
+
+## 📁 Struktur Project
+
+```
+umkm-order-system/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── OrderController.php
+│   │       └── ProfileController.php
+│   └── Models/
+│       ├── Order.php
+│       └── User.php
+├── database/
+│   └── migrations/
+│       ├── create_users_table.php
+│       └── create_orders_table.php
+├── resources/
+│   └── views/
+│       ├── layouts/
+│       │   ├── app.blade.php
+│       │   ├── guest.blade.php
+│       │   └── navigation.blade.php
+│       ├── auth/
+│       │   ├── login.blade.php
+│       │   └── register.blade.php
+│       └── orders/
+│           ├── create.blade.php
+│           └── index.blade.php
+├── routes/
+│   ├── web.php
+│   └── auth.php
+└── .env
+```
+
+---
+
+## 🗄️ Struktur Database
+
+Tabel `users`:
+
+| Kolom      | Tipe      | Keterangan        |
+| ---------- | --------- | ----------------- |
+| id         | BIGINT    | Primary key       |
+| name       | VARCHAR   | Nama admin        |
+| email      | VARCHAR   | Email login       |
+| password   | VARCHAR   | Password (hashed) |
+| created_at | TIMESTAMP | Waktu dibuat      |
+
+Tabel `orders`:
+
+| Kolom          | Tipe      | Keterangan                         |
+| -------------- | --------- | ---------------------------------- |
+| id             | BIGINT    | Primary key                        |
+| nama_pelanggan | VARCHAR   | Nama lengkap pelanggan             |
+| nomor_whatsapp | VARCHAR   | Nomor WA pelanggan                 |
+| alamat         | TEXT      | Alamat pengiriman                  |
+| detail_order   | TEXT      | Rincian pesanan                    |
+| total_harga    | DECIMAL   | Total harga (opsional)             |
+| status         | ENUM      | pending / proses / selesai / batal |
+| created_at     | TIMESTAMP | Waktu order dibuat                 |
+| updated_at     | TIMESTAMP | Waktu order diupdate               |
+
+---
+
+## 🗺️ Roadmap
+
+- [x] Form order online
+- [x] Dashboard laporan order
+- [x] Update status order
+- [x] Authentication (Login/Register) dengan Laravel Breeze
+- [x] Navbar navigasi lengkap
+- [ ] Ganti UI ke Bootstrap
+- [ ] Sistem donasi
+- [ ] Notifikasi WhatsApp otomatis (Fonnte API)
+- [ ] Export laporan ke PDF / Excel
+- [ ] AI Chatbot terintegrasi (WhatsApp, Instagram, TikTok)
+- [ ] Deploy ke hosting
+
+---
+
+## 👤 Developer
+
+**Zeinan Ramadan**
+
+- GitHub: [@ZeinanRamadan](https://github.com/)
+- LinkedIn: [Zeinan Ramadan](https://linkedin.com/)
+
+---
+
+## 📄 Lisensi
+
+Project ini dibuat untuk keperluan portofolio dan pengembangan bisnis IT Solution.
+
+---
+
+> Dibuat dengan ❤️ sebagai bagian dari perjalanan membangun IT Solution Company
