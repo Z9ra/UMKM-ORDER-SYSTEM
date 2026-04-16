@@ -2,7 +2,20 @@
 
 @section('content')
 <div class="bg-white rounded-xl shadow p-8">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">📊 Dashboard Order</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Dashboard Order</h2>
+
+    <div class="flex justify-between items-center mb-6">
+        <div class="flex gap-3">
+            <a href="{{ route('orders.exportExcel') }}"
+                class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition">
+                Export Excel
+            </a>
+            <a href="{{ route('orders.exportPdf') }}"
+                class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-red-700 transition">
+                Export PDF
+            </a>
+        </div>
+    </div>
 
     {{-- Summary Cards --}}
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">

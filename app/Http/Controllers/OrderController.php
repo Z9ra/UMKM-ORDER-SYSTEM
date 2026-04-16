@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Exports\OrdersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -42,5 +45,19 @@ class OrderController extends Controller
     {
         $order->update(['status' => $request->status]);
         return back()->with('success', 'Status order diupdate!');
+    }
+
+    // Export Excel
+    public function exportExcel()
+    {
+        return Excel::download(new OrdersExport, 'laporan-order-' . now()->format('d-m-Y') . '.xlsx');
+    }
+
+    // Export PDF
+    public function exportPdf()
+    {
+        $orders = Order::latest()->get();
+        $pdf = Pdf::loadView('exports.orders-pdf', compact('orders'));
+        return $pdf->download('laporan-order-' . now()->format('d-m-Y') . '.pdf');
     }
 }
