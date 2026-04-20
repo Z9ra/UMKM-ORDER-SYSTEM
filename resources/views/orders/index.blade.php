@@ -43,7 +43,9 @@
                     <th class="px-4 py-3">Detail Order</th>
                     <th class="px-4 py-3">Total</th>
                     <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3">Jam Input</th>
                     <th class="px-4 py-3">Aksi</th>
+                    <th class="px-4 py-3">Edit</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -64,6 +66,7 @@
                             {{ ucfirst($order->status) }}
                         </span>
                     </td>
+                    <td class="px-4 py-3">{{ $order->jam_input ?? '-' }}</td>
                     <td class="px-4 py-3">
                         <form action="{{ route('orders.updateStatus', $order) }}" method="POST">
                             @csrf @method('PATCH')
@@ -75,6 +78,22 @@
                                 <option value="batal" {{ $order->status === 'batal' ? 'selected' : '' }}>Batal</option>
                             </select>
                         </form>
+
+                    </td>
+                    <td class="px-4 py-3">
+                        <a href="{{ route('orders.edit', $order) }}"
+                            class="inline-block w-16 text-center bg-yellow-500 text-white px-2 py-1 rounded text-xs hover:bg-yellow-600 transition">
+                            Edit
+                        </a>
+                        {{-- Tombol Hapus --}}
+                        <form action="/orders/{{ $order->id }}" method="POST"
+                            onsubmit="return confirm('Yakin ingin menghapus order ini?')">
+                            @csrf @method('DELETE')
+                            <button type="submit"
+                                class="w-16 text-center bg-red-500 text-white px-2 py-1 rounded text-xs hover:bg-red-600 transition">
+                                Hapus
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 @empty
@@ -84,6 +103,42 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
+    {{-- Log Penghapusan --}}
+    <div class="mt-10">
+        <h3 class="text-xl font-bold text-gray-800 mb-4">🗑️ Log Penghapusan Order</h3>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+                <thead class="bg-red-50 text-red-600 uppercase text-xs">
+                    <tr>
+                        <th class="px-4 py-3">#</th>
+                        <th class="px-4 py-3">Nama Pelanggan</th>
+                        <th class="px-4 py-3">WhatsApp</th>
+                        <th class="px-4 py-3">Detail Order</th>
+                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3">Dihapus Oleh</th>
+                        <th class="px-4 py-3">Waktu</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    @forelse($deletionLogs as $log)
+                    <tr class="hover:bg-red-50">
+                        <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-3">{{ $log->nama_pelanggan }}</td>
+                        <td class="px-4 py-3">{{ $log->nomor_whatsapp }}</td>
+                        <td class="px-4 py-3">{{ $log->detail_order }}</td>
+                        <td class="px-4 py-3">{{ ucfirst($log->status) }}</td>
+                        <td class="px-4 py-3 font-medium">{{ $log->dihapus_oleh }}</td>
+                        <td class="px-4 py-3">{{ $log->created_at->format('d/m/Y H:i') }}</td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="7" class="px-4 py-8 text-center text-gray-400">Belum ada log penghapusan.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection

@@ -12,14 +12,6 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/export-excel', [OrderController::class, 'exportExcel'])
-    ->middleware(['auth'])
-    ->name('orders.exportExcel');
-
-Route::get('/export-pdf', [OrderController::class, 'exportPdf'])
-    ->middleware(['auth'])
-    ->name('orders.exportPdf');
-
 // Order routes
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 
@@ -34,6 +26,26 @@ Route::get('/dashboard', [OrderController::class, 'index'])
 Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])
     ->middleware(['auth'])
     ->name('orders.updateStatus');
+
+Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])
+    ->middleware(['auth'])
+    ->name('orders.edit');
+
+Route::put('/orders/{order}', [OrderController::class, 'update'])
+    ->middleware(['auth'])
+    ->name('orders.update');
+
+Route::delete('/orders/{order}', [OrderController::class, 'destroy'])
+    ->middleware(['auth'])
+    ->name('orders.destroy');
+
+Route::get('/export-excel', [OrderController::class, 'exportExcel'])
+    ->middleware(['auth'])
+    ->name('orders.exportExcel');
+
+Route::get('/export-pdf', [OrderController::class, 'exportPdf'])
+    ->middleware(['auth'])
+    ->name('orders.exportPdf');
 
 // Profile routes
 Route::middleware('auth')->group(function () {

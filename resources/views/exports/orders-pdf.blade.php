@@ -66,7 +66,7 @@
 </head>
 
 <body>
-    <h2>📊 Laporan Order UMKM</h2>
+    <h2>Laporan Order UMKM</h2>
     <p>Dicetak pada: {{ now()->format('d/m/Y H:i') }}</p>
 
     <table>
