@@ -9,19 +9,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->foreignId('user_id')
-                ->nullable()
-                ->after('id')
-                ->constrained()
-                ->onDelete('cascade');
+            $table->string('nomor_whatsapp')->nullable()->after('nama_pelanggan');
+            $table->text('alamat')->nullable()->after('nomor_whatsapp');
+            $table->enum('tipe_order', ['online', 'onsite'])->default('online')->after('alamat');
         });
     }
 
     public function down(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
+            $table->dropColumn(['nomor_whatsapp', 'alamat', 'tipe_order']);
         });
     }
 };

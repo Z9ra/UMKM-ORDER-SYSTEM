@@ -8,15 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->time('jam_input')->nullable()->after('status');
-        });
-
         Schema::create('deletion_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('id_pesanan');
             $table->string('nama_pelanggan');
-            $table->string('nomor_whatsapp');
-            $table->text('detail_order');
+            $table->string('nama_menu');
+            $table->integer('total_pesanan');
+            $table->decimal('total_harga', 10, 2);
             $table->string('status');
             $table->string('dihapus_oleh');
             $table->timestamps();
@@ -25,9 +24,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('jam_input');
-        });
         Schema::dropIfExists('deletion_logs');
     }
 };

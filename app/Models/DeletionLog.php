@@ -8,9 +8,11 @@ class DeletionLog extends Model
 {
     protected $fillable = [
         'user_id',
+        'id_pesanan',
         'nama_pelanggan',
-        'nomor_whatsapp',
-        'detail_order',
+        'nama_menu',
+        'total_pesanan',
+        'total_harga',
         'status',
         'dihapus_oleh',
     ];

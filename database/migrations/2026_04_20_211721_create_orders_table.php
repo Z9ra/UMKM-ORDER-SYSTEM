@@ -6,26 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->string('id_pesanan')->primary(); // OD001, OD002, dst
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nama_pelanggan');
-            $table->string('nomor_whatsapp');
-            $table->string('alamat');
-            $table->text('detail_order');
-            $table->decimal('total_harga', 10, 2)->default(0);
+            $table->string('id_menu');
+            $table->foreign('id_menu')->references('id_menu')->on('menus')->onDelete('cascade');
+            $table->string('nama_menu');
+            $table->decimal('harga_menu', 10, 2);
+            $table->integer('total_pesanan');
+            $table->decimal('total_harga', 10, 2);
             $table->enum('status', ['pending', 'proses', 'selesai', 'batal'])->default('pending');
+            $table->time('jam_input')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('orders');

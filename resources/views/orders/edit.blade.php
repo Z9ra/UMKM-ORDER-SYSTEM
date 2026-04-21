@@ -4,8 +4,14 @@
 <div class="max-w-lg mx-auto bg-white rounded-xl shadow p-8">
     <h2 class="text-2xl font-bold text-gray-800 mb-6">✏️ Edit Order</h2>
 
-    <form action="{{ route('orders.update', $order) }}" method="POST" class="space-y-4">
+    <form action="{{ route('orders.update', $order->id_pesanan) }}" method="POST" class="space-y-4">
         @csrf @method('PUT')
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">ID Pesanan</label>
+            <input type="text" value="{{ $order->id_pesanan }}" disabled
+                class="w-full border border-gray-200 rounded-lg px-4 py-2 bg-gray-50 text-gray-500">
+        </div>
 
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Nama Pelanggan</label>
@@ -14,27 +20,30 @@
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp</label>
-            <input type="text" name="nomor_whatsapp" value="{{ $order->nomor_whatsapp }}" required
+            <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Menu</label>
+            <select name="id_menu" required onchange="updateHarga(this)"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                @foreach($menus as $menu)
+                <option value="{{ $menu->id_menu }}" data-harga="{{ $menu->harga_menu }}"
+                    {{ $order->id_menu === $menu->id_menu ? 'selected' : '' }}>
+                    {{ $menu->nama_menu }} - Rp {{ number_format($menu->harga_menu, 0, ',', '.') }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Pesanan</label>
+            <input type="number" name="total_pesanan" id="total_pesanan" value="{{ $order->total_pesanan }}" required min="1"
+                onchange="hitungTotal()"
                 class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Alamat Pengiriman</label>
-            <textarea name="alamat" required rows="3"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $order->alamat }}</textarea>
-        </div>
-
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Detail Order</label>
-            <textarea name="detail_order" required rows="3"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $order->detail_order }}</textarea>
-        </div>
-
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Total Harga (Rp)</label>
-            <input type="number" name="total_harga" value="{{ $order->total_harga }}"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Total Harga</label>
+            <input type="text" id="total_harga_display" disabled
+                value="Rp {{ number_format($order->total_harga, 0, ',', '.') }}"
+                class="w-full border border-gray-200 rounded-lg px-4 py-2 bg-gray-50 text-gray-500">
         </div>
 
         <div>
@@ -60,4 +69,24 @@
         </div>
     </form>
 </div>
+
+<script>
+    let hargaSatuan = {
+        {
+            $order - > harga_menu
+        }
+    };
+
+    function updateHarga(select) {
+        const option = select.options[select.selectedIndex];
+        hargaSatuan = parseFloat(option.getAttribute('data-harga')) || 0;
+        hitungTotal();
+    }
+
+    function hitungTotal() {
+        const jumlah = parseInt(document.getElementById('total_pesanan').value) || 0;
+        const total = hargaSatuan * jumlah;
+        document.getElementById('total_harga_display').value = 'Rp ' + total.toLocaleString('id-ID');
+    }
+</script>
 @endsection
