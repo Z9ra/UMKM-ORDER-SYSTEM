@@ -60,7 +60,7 @@
         <div class="flex gap-3">
             <button type="submit"
                 class="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                💾 Simpan Perubahan
+                Simpan Perubahan
             </button>
             <a href="{{ route('dashboard') }}"
                 class="flex-1 text-center bg-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-300 transition">

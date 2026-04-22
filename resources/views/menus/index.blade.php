@@ -3,7 +3,7 @@
 @section('content')
 <div class="bg-white rounded-xl shadow p-8">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">🍽️ Daftar Menu</h2>
+        <h2 class="text-2xl font-bold text-gray-800">Daftar Menu</h2>
         <a href="{{ route('menus.create') }}"
             class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition">
             + Tambah Menu
@@ -47,14 +47,14 @@
                         <div class="flex gap-2">
                             <a href="{{ route('menus.edit', $menu->id_menu) }}"
                                 class="w-16 text-center bg-yellow-500 text-white px-2 py-1 rounded text-xs hover:bg-yellow-600 transition">
-                                ✏️ Edit
+                                Edit
                             </a>
                             <form action="{{ route('menus.destroy', $menu->id_menu) }}" method="POST"
                                 onsubmit="return confirm('Yakin hapus menu ini?')">
                                 @csrf @method('DELETE')
                                 <button type="submit"
                                     class="w-16 text-center bg-red-500 text-white px-2 py-1 rounded text-xs hover:bg-red-600 transition">
-                                    🗑️ Hapus
+                                    Hapus
                                 </button>
                             </form>
                         </div>

@@ -22,7 +22,11 @@ class OrderController extends Controller
 
     public function create()
     {
-        $menus = Menu::where('user_id', auth()->id())->get();
+        $menus = Menu::where('user_id', auth()->id())
+            ->orderBy('kategori')
+            ->orderBy('nama_menu')
+            ->get()
+            ->groupBy('kategori');
         return view('orders.create', compact('menus'));
     }
 

@@ -5,15 +5,15 @@
 
     {{-- Header --}}
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">📊 Dashboard Order</h2>
+        <h2 class="text-2xl font-bold text-gray-800">Dashboard Order</h2>
         <div class="flex gap-3">
             <a href="{{ route('orders.exportExcel') }}"
                 class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition">
-                📥 Export Excel
+                Export Excel
             </a>
             <a href="{{ route('orders.exportPdf') }}"
                 class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-red-700 transition">
-                📄 Export PDF
+                Export PDF
             </a>
         </div>
     </div>
@@ -62,9 +62,9 @@
                     <td class="px-4 py-3">{{ $order->nama_pelanggan }}</td>
                     <td class="px-4 py-3">
                         @if($order->tipe_order === 'onsite')
-                        <span class="text-orange-600 font-semibold text-xs">🏪 Onsite</span>
+                        <span class="text-orange-600 font-semibold text-xs">Onsite</span>
                         @else
-                        <span class="text-blue-600 font-semibold text-xs">📱 Online</span>
+                        <span class="text-blue-600 font-semibold text-xs">Online</span>
                         @endif
                     </td>
                     <td class="px-4 py-3">
@@ -106,18 +106,18 @@
                         <div class="flex flex-col gap-1">
                             <a href="{{ route('orders.show', $order->id_pesanan) }}"
                                 class="w-16 text-center bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600 transition">
-                                👁️ Detail
+                                Detail
                             </a>
                             <a href="{{ route('orders.edit', $order->id_pesanan) }}"
                                 class="w-16 text-center bg-yellow-500 text-white px-2 py-1 rounded text-xs hover:bg-yellow-600 transition">
-                                ✏️ Edit
+                                Edit
                             </a>
                             <form action="{{ route('orders.destroy', $order->id_pesanan) }}" method="POST"
                                 onsubmit="return confirm('Yakin ingin menghapus order ini?')">
                                 @csrf @method('DELETE')
                                 <button type="submit"
                                     class="w-16 text-center bg-red-500 text-white px-2 py-1 rounded text-xs hover:bg-red-600 transition">
-                                    🗑️ Hapus
+                                    Hapus
                                 </button>
                             </form>
                         </div>
@@ -134,7 +134,7 @@
 
     {{-- Log Penghapusan --}}
     <div class="mt-10">
-        <h3 class="text-xl font-bold text-gray-800 mb-4">🗑️ Log Penghapusan Order</h3>
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Log Penghapusan Order</h3>
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left">
                 <thead class="bg-red-50 text-red-600 uppercase text-xs">

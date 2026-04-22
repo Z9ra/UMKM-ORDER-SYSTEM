@@ -3,7 +3,7 @@
 @section('content')
 <div class="max-w-2xl mx-auto bg-white rounded-xl shadow p-8">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">📋 Detail Order</h2>
+        <h2 class="text-2xl font-bold text-gray-800">Detail Order</h2>
         <a href="{{ route('dashboard') }}"
             class="text-sm text-gray-500 hover:underline">← Kembali</a>
     </div>
@@ -22,9 +22,9 @@
             <span class="text-gray-500">Tipe Order</span>
             <span class="font-semibold">
                 @if($order->tipe_order === 'onsite')
-                🏪 Onsite / Offline
+                Onsite / Offline
                 @else
-                📱 Online
+                Online
                 @endif
             </span>
         </div>

@@ -17,6 +17,7 @@ class Menu extends Model
         'id_menu',
         'user_id',
         'nama_menu',
+        'kategori',
         'gambar_menu',
         'detail_menu',
         'harga_menu',
