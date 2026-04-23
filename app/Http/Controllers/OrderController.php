@@ -157,11 +157,15 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
+        $order->load('items');
+
+        $namaMenu = $order->items->map(fn($i) => $i->nama_menu . ' x' . $i->jumlah)->join(', ');
+
         DeletionLog::create([
             'user_id'        => auth()->id(),
             'id_pesanan'     => $order->id_pesanan,
             'nama_pelanggan' => $order->nama_pelanggan,
-            'nama_menu'      => $order->items->pluck('nama_menu')->join(', '),
+            'nama_menu'      => $namaMenu,
             'total_pesanan'  => $order->total_pesanan,
             'total_harga'    => $order->total_harga,
             'status'         => $order->status,
@@ -169,7 +173,9 @@ class OrderController extends Controller
         ]);
 
         $order->delete();
-        return redirect()->route('dashboard')->with('success', 'Order berhasil dihapus!');
+
+        return redirect()->route('dashboard')
+            ->with('success', 'Order berhasil dihapus!');
     }
 
     public function exportExcel()

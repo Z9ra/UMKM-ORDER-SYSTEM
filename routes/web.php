@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TutupBukuController;
 
 // Root redirect
 Route::get('/', function () {
@@ -11,10 +12,16 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [OrderController::class, 'index'])->name('dashboard');
+
+    //tutup buku
+    Route::get('/tutup-buku', [TutupBukuController::class, 'index'])->name('tutupbuku.index');
+    Route::post('/tutup-buku/simpan-pengaturan', [TutupBukuController::class, 'simpanPengaturan'])->name('tutupbuku.simpanPengaturan');
+    Route::post('/tutup-buku/proses', [TutupBukuController::class, 'tutupBuku'])->name('tutupbuku.proses');
+    Route::get('/tutup-buku/{laporanHarian}', [TutupBukuController::class, 'show'])->name('tutupbuku.show');
 
     // Orders
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');

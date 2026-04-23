@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('menus.index')" :active="request()->routeIs('menus.*')">
                         {{ __('Menu') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('tutupbuku.index')" :active="request()->routeIs('tutupbuku.*')">
+                        {{ __('Tutup Buku') }}
+                    </x-nav-link>
                 </div>
             </div>
 
